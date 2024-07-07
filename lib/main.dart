@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -57,90 +58,101 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
+         mainAxisAlignment: MainAxisAlignment.start,
+         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-            child: Padding(
-              padding: EdgeInsets.only(
-                  top:20.0.sp,left: 10.0.sp, right: 10.0.sp, ),
-              child: Container(
-                  width: 75.w,
-                  height: 75.h,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.pinkAccent, width: 2),
-                    shape: BoxShape.circle,
-                  )),
-            ),
-          ),
-          SizedBox(height: 10.0.sp),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0.sp),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 15.w,
-                  height: 15.h,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.pinkAccent, width: 2),
-                    shape: BoxShape.circle,
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFF9E3E3),
-                      shape: const CircleBorder(), // Make the button circular
-                      padding: EdgeInsets.zero, // Ensure no extra padding
-                    ),
-                    child: const Icon(Icons.repeat, color: Colors.black),
-                  ),
+            padding: EdgeInsets.only(top:30.0.sp), // Use logical dp units
+            child: Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.6, // 20% of screen width
+                height: MediaQuery.of(context).size.width * 0.6, // Aspect ratio preserved
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xFFFFD1D1), width: 4),
+                  shape: BoxShape.circle,
                 ),
-                SizedBox(width: 5.w), // Add some spacing between buttons
-                Expanded(
-                  child: Container(
-                    constraints: BoxConstraints(
-                      maxWidth: 37.w,
-                      maxHeight: 60.h,
-                    ),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.pink, // Background color
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(9),
-                        ),
-                        minimumSize: Size(120, 5), // Ensure no extra padding
-                      ),
-                      child: Icon(
-                        Icons.play_arrow,
-                        color: Colors.black,
-                        size: 10.h,
+                child: Center(
+                  child: Text(
+                    "00:00",
+                    style: GoogleFonts.poppins(
+                      textStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 28.sp,
                       ),
                     ),
                   ),
-                ),
-                SizedBox(width: 5.w), // Add some spacing between buttons
-                Container(
-                  width: 15.w,
-                  height: 15.h,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.pinkAccent, width: 2),
-                    shape: BoxShape.circle,
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFF9E3E3),
-                      shape: const CircleBorder(), // Make the button circular
-                      padding: EdgeInsets.zero, // Ensure no extra padding
-                    ),
-                    child: const Icon(Icons.save_alt, color: Colors.black),
-                  ),
-                ),
-              ],
+                )
+              ),
             ),
           ),
+          SizedBox(height: 10.sp,),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: 10.0.sp),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       Container(
+          //         width: 15.w,
+          //         height: 15.h,
+          //         decoration: BoxDecoration(
+          //           border: Border.all(color: Colors.pinkAccent, width: 2),
+          //           shape: BoxShape.circle,
+          //         ),
+          //         child: ElevatedButton(
+          //           onPressed: () {},
+          //           style: ElevatedButton.styleFrom(
+          //             backgroundColor: Color(0xFFF9E3E3),
+          //             shape: const CircleBorder(), // Make the button circular
+          //             padding: EdgeInsets.zero, // Ensure no extra padding
+          //           ),
+          //           child: const Icon(Icons.repeat, color: Colors.black),
+          //         ),
+          //       ),
+          //     SizedBox(width: 5.w), // Add some spacing between buttons
+          //       Expanded(
+          //         child: Container(
+          //           constraints: BoxConstraints(
+          //             maxWidth: 37.w,
+          //             maxHeight: 60.h,
+          //           ),
+          //           child: ElevatedButton(
+          //             onPressed: () {},
+          //             style: ElevatedButton.styleFrom(
+          //               backgroundColor: Colors.pink, // Background color
+          //               shape: RoundedRectangleBorder(
+          //                 borderRadius: BorderRadius.circular(9),
+          //               ),
+          //               minimumSize: Size(120, 5), // Ensure no extra padding
+          //             ),
+          //             child: Icon(
+          //               Icons.play_arrow,
+          //               color: Colors.black,
+          //               size: 10.h,
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //       SizedBox(width: 5.w), // Add some spacing between buttons
+          //       Container(
+          //         width: 15.w,
+          //         height: 15.h,
+          //         decoration: BoxDecoration(
+          //           border: Border.all(color: Colors.pinkAccent, width: 2),
+          //           shape: BoxShape.circle,
+          //         ),
+          //         child: ElevatedButton(
+          //           onPressed: () {},
+          //           style: ElevatedButton.styleFrom(
+          //             backgroundColor: Color(0xFFF9E3E3),
+          //             shape: const CircleBorder(), // Make the button circular
+          //             padding: EdgeInsets.zero, // Ensure no extra padding
+          //           ),
+          //           child: const Icon(Icons.save_alt, color: Colors.black),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );
