@@ -55,7 +55,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool _isPaused = false;
-  bool _isReset = false;
+  bool one_nine = true;
 
   Timer? timer_sec;
   Timer? timer_millisec;
@@ -79,12 +79,15 @@ class _MyHomePageState extends State<MyHomePage> {
     if (!_isPaused) {
       timer_millisec = Timer.periodic(Duration(milliseconds: 1), (timer) {
         milliseconds++;
-        _millisecondsController.sink.add(milliseconds);
+
+          _millisecondsController.sink.add(milliseconds);
+
 
         // Check if milliseconds reach 100 (1 second)
         if (milliseconds == 100) {
           milliseconds = 0; // Reset milliseconds
           seconds++;
+
           _secondStreamController.sink.add(seconds); // Update seconds stream
         }
       });
@@ -110,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
       timer_sec?.cancel(); // Cancel the second timer
 
       // Reset the streams
-      _millisecondsController.sink.add(0);
+      _millisecondsController.sink.add(00);
       _secondStreamController.sink.add(0);
     });
   }
@@ -170,58 +173,69 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                   StreamBuilder<int>(
-                        stream: _secondStreamController.stream,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return CircularProgressIndicator(); // Display a loading indicator when waiting for data.
-                          } else if (snapshot.hasError) {
-                            return Text(
-                                'Error: ${snapshot.error}'); // Display an error message if an error occurs.
-                          } else if (!snapshot.hasData) {
-                            return Text(
-                              '0',
-                              style: GoogleFonts.poppins(
-                                textStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 32.sp,
-                                ),
-                              ),
-                            ); // Display a message when no data is available.
-                          } else {
-                            seconds = snapshot.data!;
-                            return Text(
-                              '${snapshot.data}',
-                              style: GoogleFonts.poppins(
-                                textStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 32.sp,
-                                ),
-                              ),
-                            ); // Display the latest number when data is available.
-                          }
-                        },
-                      ),
-
+                    // if (one_nine)
+                    //   Padding(
+                    //     padding: EdgeInsets.only(left:10.sp),
+                    //     child: Text(
+                    //       "0",
+                    //       style: GoogleFonts.poppins(
+                    //         textStyle: TextStyle(
+                    //           color: Colors.white,
+                    //           fontSize: 32.sp,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
                     SizedBox(
-                       width: 2,
+                      width: 10.w,
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top:12.0),
-                      child: Text(
-                        's',
-                        style: GoogleFonts.poppins(
-                          textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-
-                          ),
+                    StreamBuilder<int>(
+                      stream: _secondStreamController.stream,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return CircularProgressIndicator(); // Display a loading indicator when waiting for data.
+                        } else if (snapshot.hasError) {
+                          return Text(
+                              'Error: ${snapshot.error}'); // Display an error message if an error occurs.
+                        } else if (!snapshot.hasData) {
+                          return Text(
+                            '00',
+                            style: GoogleFonts.poppins(
+                              textStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: 32.sp,
+                              ),
+                            ),
+                          ); // Display a message when no data is available.
+                        } else {
+                          seconds = snapshot.data!;
+                          return Text(
+                            '${snapshot.data}',
+                            style: GoogleFonts.poppins(
+                              textStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: 32.sp,
+                              ),
+                            ),
+                          ); // Display the latest number when data is available.
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    Text(
+                      ':',
+                      style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 32.sp,
                         ),
                       ),
                     ),
                     SizedBox(
-                      width: 20,
+                      width: 10.w,
                     ),
                     StreamBuilder<int>(
                       stream: _millisecondsController.stream,
@@ -233,23 +247,27 @@ class _MyHomePageState extends State<MyHomePage> {
                           return Text(
                               'Error: ${snapshot.error}'); // Display an error message if an error occurs.
                         } else if (!snapshot.hasData) {
-                          return Text(
-                            '0',
-                            style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                color: Colors.white,
-                                fontSize: 32.sp,
+                          return Expanded(
+                            child: Text(
+                              '00',
+                              style: GoogleFonts.poppins(
+                                textStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 32.sp,
+                                ),
                               ),
                             ),
                           ); // Display a message when no data is available.
                         } else {
                           milliseconds = snapshot.data!;
-                          return Text(
-                            '${snapshot.data}',
-                            style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                color: Colors.white,
-                                fontSize: 32.sp,
+                          return Expanded(
+                            child: Text(
+                              '${snapshot.data}',
+                              style: GoogleFonts.poppins(
+                                textStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 32.sp,
+                                ),
                               ),
                             ),
                           ); // Display the latest number when data is available.
