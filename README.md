@@ -2,15 +2,5 @@
 
 A new Flutter project.
 
-## Getting Started
+![ios (1)](https://github.com/sarwataijaz/stopwatch/assets/124436066/1792fcfe-e617-4bd2-a219-05c7ff5caffb)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
