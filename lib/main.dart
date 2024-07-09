@@ -54,8 +54,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool _isPaused = false;
-  bool one_nine = true;
+  bool _isPaused = true;
+  bool _isVisible1 = true;
+  bool _isVisible2 = true;
+  bool fontChange = true;
 
   Timer? timer_sec;
   Timer? timer_millisec;
@@ -64,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
   StreamController<int> _millisecondsController = StreamController<int>();
 
   int fontsize = 32;
+  double padding = 0.0;
 
   @override
   void initState() {
@@ -80,6 +83,11 @@ class _MyHomePageState extends State<MyHomePage> {
       timer_millisec = Timer.periodic(Duration(milliseconds: 1), (timer) {
         milliseconds++;
 
+        if(!(milliseconds>=0 && milliseconds<=9)) {
+          setState(() {
+            _isVisible2 = false;
+          });
+        }
           _millisecondsController.sink.add(milliseconds);
 
 
@@ -88,11 +96,25 @@ class _MyHomePageState extends State<MyHomePage> {
           milliseconds = 0; // Reset milliseconds
           seconds++;
 
+          if (!(seconds >= 0 && seconds <= 9)) {
+            setState(() {
+              _isVisible1 = false;
+              print("called1");
+              if (fontChange) {
+                fontsize -= 1;
+                fontChange = false;
+                padding += 28.0;
+                print("called2: fontsize=$fontsize, padding=$padding");
+              }
+            });
+          }
+
           _secondStreamController.sink.add(seconds); // Update seconds stream
         }
       });
     }
   }
+
 
   void _togglePause(int seconds, int milliseconds) {
     setState(() {
@@ -113,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
       timer_sec?.cancel(); // Cancel the second timer
 
       // Reset the streams
-      _millisecondsController.sink.add(00);
+      _millisecondsController.sink.add(0);
       _secondStreamController.sink.add(0);
     });
   }
@@ -173,22 +195,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // if (one_nine)
-                    //   Padding(
-                    //     padding: EdgeInsets.only(left:10.sp),
-                    //     child: Text(
-                    //       "0",
-                    //       style: GoogleFonts.poppins(
-                    //         textStyle: TextStyle(
-                    //           color: Colors.white,
-                    //           fontSize: 32.sp,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
+                      Visibility(
+                        visible: _isVisible1,
+                        child: Padding(
+                          padding: EdgeInsets.only(left:25.sp),
+                          child: Text(
+                            "0",
+                            style: GoogleFonts.poppins(
+                              textStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: fontsize.sp,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
                     StreamBuilder<int>(
                       stream: _secondStreamController.stream,
                       builder: (context, snapshot) {
@@ -204,18 +226,21 @@ class _MyHomePageState extends State<MyHomePage> {
                             style: GoogleFonts.poppins(
                               textStyle: TextStyle(
                                 color: Colors.white,
-                                fontSize: 32.sp,
+                                fontSize: fontsize.sp,
                               ),
                             ),
                           ); // Display a message when no data is available.
                         } else {
                           seconds = snapshot.data!;
-                          return Text(
-                            '${snapshot.data}',
-                            style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                color: Colors.white,
-                                fontSize: 32.sp,
+                          return Padding(
+                            padding: EdgeInsets.only(left:padding.sp),
+                            child: Text(
+                              '${snapshot.data}',
+                              style: GoogleFonts.poppins(
+                                textStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: fontsize.sp,
+                                ),
                               ),
                             ),
                           ); // Display the latest number when data is available.
@@ -223,19 +248,34 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                     ),
                     SizedBox(
-                      width: 10.w,
+                      width: 5.w,
                     ),
                     Text(
-                      ':',
-                      style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 32.sp,
+                        ':',
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: fontsize.sp,
+                          ),
                         ),
-                      ),
                     ),
                     SizedBox(
-                      width: 10.w,
+                      width: 5.w,
+                    ),
+                    Visibility(
+                      visible: _isVisible2,
+                      child: Padding(
+                        padding: EdgeInsets.only(left:10.sp),
+                        child: Text(
+                          "0",
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: fontsize.sp,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                     StreamBuilder<int>(
                       stream: _millisecondsController.stream,
@@ -247,28 +287,28 @@ class _MyHomePageState extends State<MyHomePage> {
                           return Text(
                               'Error: ${snapshot.error}'); // Display an error message if an error occurs.
                         } else if (!snapshot.hasData) {
-                          return Expanded(
+                          return  Expanded(
                             child: Text(
-                              '00',
-                              style: GoogleFonts.poppins(
-                                textStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 32.sp,
+                                '00',
+                                style: GoogleFonts.poppins(
+                                  textStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: fontsize.sp,
+                                  ),
                                 ),
-                              ),
                             ),
                           ); // Display a message when no data is available.
                         } else {
                           milliseconds = snapshot.data!;
                           return Expanded(
                             child: Text(
-                              '${snapshot.data}',
-                              style: GoogleFonts.poppins(
-                                textStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 32.sp,
+                                '${snapshot.data}',
+                                style: GoogleFonts.poppins(
+                                  textStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: fontsize.sp,
+                                  ),
                                 ),
-                              ),
                             ),
                           ); // Display the latest number when data is available.
                         }
@@ -279,8 +319,16 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             )),
           ),
+          // Visibility(
+          //     child: Container(
+          //       constraints: BoxConstraints(
+          //         maxWidth: 37.w,
+          //         maxHeight: 20.h,
+          //       ),
+          //     ),
+          // ),
           SizedBox(
-            height: 50.sp,
+            height: 55.sp,
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0.sp),
@@ -297,6 +345,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: ElevatedButton(
                     onPressed: () {
                       _toggleReset();
+                      setState(() {
+                        _isVisible1 = true;
+                        _isVisible2 = true;
+                        fontChange = true;
+                        padding = 0.0;
+                        fontsize = 32;
+                      });
                       print("repeat");
                     },
                     style: ElevatedButton.styleFrom(
