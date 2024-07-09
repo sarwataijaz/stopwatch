@@ -88,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
     int mins = min;
 
     if (!_isPaused) {
-      _timer_millisec = Timer.periodic(Duration(milliseconds: 10), (timer) {
+      _timer_millisec = Timer.periodic(Duration(milliseconds: 5), (timer) {
         milliseconds++;
 
         if (!(milliseconds >= 0 && milliseconds <= 9)) {
@@ -190,6 +190,8 @@ class _MyHomePageState extends State<MyHomePage> {
     int milliseconds = 0;
     int min = 0;
 
+    double approx_screenSize = MediaQuery.of(context).size.width * 0.7;
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -218,10 +220,8 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: EdgeInsets.only(top: 20.0.sp), // Use logical dp units
             child: Center(
                 child: Container(
-              width: MediaQuery.of(context).size.width *
-                  0.7, // 20% of screen width
-              height: MediaQuery.of(context).size.width *
-                  0.7, // Aspect ratio preserved
+              width: approx_screenSize, // 70% of screen
+              height: approx_screenSize,
               decoration: BoxDecoration(
                 border: Border.all(color: Color(0xFFFFD1D1), width: 4),
                 shape: BoxShape.circle,
