@@ -59,7 +59,6 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _isVisible1 = true;
   bool _isVisible2 = true;
   bool _isVisible3 = true;
-  bool _fontChange = true;
 
   List<String> _elapsedTimes = [];
 
@@ -88,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
     int mins = min;
 
     if (!_isPaused) {
-      _timer_millisec = Timer.periodic(Duration(milliseconds: 5), (timer) {
+      _timer_millisec = Timer.periodic(Duration(milliseconds: 10), (timer) {
         milliseconds++;
 
         if (!(milliseconds >= 0 && milliseconds <= 9)) {
@@ -109,10 +108,6 @@ class _MyHomePageState extends State<MyHomePage> {
             setState(() {
               _isVisible1 = false;
               print("called1");
-              // if (_fontChange) {
-              //   _adjustUI();
-              //   print("called2: fontsize=$_fontsize, padding=$_padding");
-              // }
             });
           }
 
@@ -130,10 +125,6 @@ class _MyHomePageState extends State<MyHomePage> {
           setState(() {
             _isVisible3 = false;
             print("called2");
-            // if (_fontChange) {
-            //   _adjustUI();
-            //   print("called2: fontsize=$_fontsize, padding=$_padding");
-            // }
           });
         }
 
@@ -141,11 +132,6 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void _adjustUI() {
-    _fontsize -= 1;
-    _fontChange = false;
-    _padding += 5.0;
-  }
 
   void _togglePause(int seconds, int milliseconds, int minutes) {
     setState(() {
@@ -541,7 +527,6 @@ class _MyHomePageState extends State<MyHomePage> {
     _isVisible1 = true;
     _isVisible2 = true;
     _isVisible3 = true;
-    _fontChange = true;
     i = 0;
     _padding = 16.0;
     _fontsize = 31;
